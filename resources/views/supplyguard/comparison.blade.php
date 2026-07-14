@@ -1,297 +1,233 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Country Comparison - SupplyGuard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.supplyguard')
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+@section('title', 'Perbandingan Negara - SupplyGuard')
+@section('page-title', 'Perbandingan Negara')
+@section('page-subtitle', 'Bandingkan indikator ekonomi, cuaca, kurs, dan risiko dua negara')
 
-    <style>
-        body {
-            background: #f4f7fb;
+@section('content')
+    @php
+        $scoreA = (int) data_get($countryA, 'risk.total_score', 0);
+        $scoreB = (int) data_get($countryB, 'risk.total_score', 0);
+        $nameA = data_get($countryA, 'country.name', 'Negara pertama');
+        $nameB = data_get($countryB, 'country.name', 'Negara kedua');
+
+        if ($scoreA < $scoreB) {
+            $saferCountry = $nameA;
+            $comparisonText = $nameA . ' memiliki skor risiko lebih rendah dan lebih aman untuk dipertimbangkan saat ini.';
+        } elseif ($scoreB < $scoreA) {
+            $saferCountry = $nameB;
+            $comparisonText = $nameB . ' memiliki skor risiko lebih rendah dan lebih aman untuk dipertimbangkan saat ini.';
+        } else {
+            $saferCountry = 'Seimbang';
+            $comparisonText = 'Kedua negara memiliki skor risiko yang sama. Pertimbangkan indikator ekonomi, cuaca, dan kurs sebelum mengambil keputusan.';
         }
 
-        .sidebar {
-            min-height: 100vh;
-            background: #0f172a;
-            color: white;
-            position: sticky;
-            top: 0;
-        }
+        $riskGap = abs($scoreA - $scoreB);
+        $sameCountry = (int) $countryAId === (int) $countryBId;
+    @endphp
 
-        .sidebar .brand {
-            font-size: 24px;
-            font-weight: 800;
-        }
+    <section class="sg-toolbar sg-comparison-toolbar">
+        <div class="sg-toolbar-copy">
+            <span class="sg-eyebrow">Mesin perbandingan</span>
+            <h2>Pilih dua negara</h2>
+            <p>Data diambil dari informasi terbaru yang tersimpan pada database SupplyGuard.</p>
+        </div>
 
-        .sidebar a {
-            color: #cbd5e1;
-            text-decoration: none;
-            display: block;
-            padding: 10px 0;
-        }
-
-        .sidebar a:hover {
-            color: white;
-        }
-
-        .section-card {
-            border: 0;
-            border-radius: 18px;
-            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-        }
-
-        .metric-box {
-            border-radius: 16px;
-            background: white;
-            padding: 18px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .small-label {
-            color: #64748b;
-            font-size: 13px;
-        }
-
-        .risk-low {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .risk-medium {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .risk-high {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-    </style>
-</head>
-
-<body>
-<div class="container-fluid">
-    <div class="row">
-        <aside class="col-md-3 col-lg-2 sidebar p-4">
-            <div class="brand mb-4">SupplyGuard</div>
-            <div class="small text-secondary mb-4">
-                Global Supply Chain Risk Intelligence
+        <form method="GET" action="{{ route('comparison') }}" class="sg-comparison-form">
+            <div class="sg-comparison-field">
+                <label for="country_a" class="form-label">Negara pertama</label>
+                <select name="country_a" id="country_a" class="form-select">
+                    @foreach ($countries as $item)
+                        <option value="{{ $item->id }}" {{ (int) $countryAId === (int) $item->id ? 'selected' : '' }}>
+                            {{ $item->name }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
 
-            <a href="{{ route('dashboard') }}">Dasbor</a>
-            <a href="{{ route('comparison') }}">Perbandingan Negara</a>
+            <span class="sg-comparison-swap" aria-hidden="true">
+                <i class="bi bi-arrow-left-right"></i>
+            </span>
 
-            <hr class="border-secondary">
-
-            <div class="small text-secondary mb-2">
-                Masuk sebagai:<br>
-                <strong class="text-white">{{ auth()->user()->name }}</strong>
+            <div class="sg-comparison-field">
+                <label for="country_b" class="form-label">Negara kedua</label>
+                <select name="country_b" id="country_b" class="form-select">
+                    @foreach ($countries as $item)
+                        <option value="{{ $item->id }}" {{ (int) $countryBId === (int) $item->id ? 'selected' : '' }}>
+                            {{ $item->name }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
 
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="btn btn-outline-light btn-sm w-100">
-                    Keluar
-                </button>
-            </form>
-        </aside>
+            <button type="submit" class="sg-btn-primary sg-comparison-submit">
+                <i class="bi bi-columns-gap"></i>
+                Bandingkan
+            </button>
+        </form>
+    </section>
 
-        <main class="col-md-9 col-lg-10 p-4">
-            <div class="mb-4">
-                <h2 class="fw-bold mb-1">Mesin Perbandingan Negara</h2>
-                <p class="text-muted mb-0">
-                    Bandingkan dua negara berdasarkan PDB, inflasi, cuaca, mata uang, dan skor risiko.
-                </p>
+    @if ($sameCountry)
+        <div class="alert alert-warning sg-alert" role="alert">
+            <i class="bi bi-info-circle-fill"></i>
+            <span>Kamu memilih negara yang sama. Pilih dua negara berbeda agar hasil perbandingan lebih berguna.</span>
+        </div>
+    @endif
+
+    <section class="sg-comparison-summary">
+        <article class="sg-card sg-summary-card">
+            <span class="sg-summary-icon"><i class="bi bi-shield-check"></i></span>
+            <div>
+                <span class="sg-summary-label">Risiko lebih rendah</span>
+                <strong>{{ $saferCountry }}</strong>
             </div>
+        </article>
 
-            <div class="card section-card p-3 mb-4">
-                <form method="GET" action="{{ route('comparison') }}" class="row g-3 align-items-end">
-                    <div class="col-md-5">
-                        <label class="form-label">Negara Pertama</label>
-                        <select name="country_a" class="form-select">
-                            @foreach ($countries as $country)
-                                <option value="{{ $country->id }}" {{ $countryAId == $country->id ? 'selected' : '' }}>
-                                    {{ $country->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="col-md-5">
-                        <label class="form-label">Negara Kedua</label>
-                        <select name="country_b" class="form-select">
-                            @foreach ($countries as $country)
-                                <option value="{{ $country->id }}" {{ $countryBId == $country->id ? 'selected' : '' }}>
-                                    {{ $country->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="col-md-2">
-                        <button type="submit" class="btn btn-dark w-100">
-                            Bandingkan
-                        </button>
-                    </div>
-                </form>
+        <article class="sg-card sg-summary-card">
+            <span class="sg-summary-icon"><i class="bi bi-activity"></i></span>
+            <div>
+                <span class="sg-summary-label">Selisih skor</span>
+                <strong>{{ $riskGap }} poin</strong>
             </div>
+        </article>
 
-            @php
-                function riskBadgeClass($level) {
-                    if ($level === 'Medium') {
-                        return 'risk-medium';
-                    }
+        <article class="sg-card sg-summary-card">
+            <span class="sg-summary-icon"><i class="bi bi-calendar3"></i></span>
+            <div>
+                <span class="sg-summary-label">Data ekonomi</span>
+                <strong>
+                    {{ data_get($countryA, 'economy.year', '-') }} / {{ data_get($countryB, 'economy.year', '-') }}
+                </strong>
+            </div>
+        </article>
+    </section>
 
-                    if ($level === 'High') {
-                        return 'risk-high';
-                    }
+    <section class="sg-section">
+        <div class="sg-section-head">
+            <div>
+                <h2>Hasil Perbandingan</h2>
+                <p>Ringkasan indikator utama untuk membantu analisis keputusan.</p>
+            </div>
+        </div>
 
-                    return 'risk-low';
-                }
-            @endphp
+        <div class="row g-3">
+            @foreach ([['data' => $countryA, 'label' => 'Negara pertama'], ['data' => $countryB, 'label' => 'Negara kedua']] as $comparison)
+                @php
+                    $data = $comparison['data'];
+                    $country = data_get($data, 'country');
+                    $economy = data_get($data, 'economy');
+                    $weather = data_get($data, 'weather');
+                    $currency = data_get($data, 'currency');
+                    $risk = data_get($data, 'risk');
+                    $riskLevel = $risk->risk_level ?? 'Low';
+                    $riskClass = match ($riskLevel) {
+                        'High' => 'sg-risk-high',
+                        'Medium' => 'sg-risk-medium',
+                        default => 'sg-risk-low',
+                    };
+                    $riskLabel = match ($riskLevel) {
+                        'High' => 'Risiko Tinggi',
+                        'Medium' => 'Risiko Sedang',
+                        default => 'Risiko Rendah',
+                    };
+                @endphp
 
-            <div class="row g-4">
-                @foreach ([$countryA, $countryB] as $data)
-                    @if ($data)
-                        @php
-                            $country = $data['country'];
-                            $economy = $data['economy'];
-                            $weather = $data['weather'];
-                            $currency = $data['currency'];
-                            $risk = $data['risk'];
-                            $riskLevel = $risk->risk_level ?? 'Low';
-                        @endphp
+                <div class="col-12 col-xl-6">
+                    <article class="sg-card sg-country-compare-card">
+                        <div class="sg-country-compare-head">
+                            <div>
+                                <span class="sg-eyebrow">{{ $comparison['label'] }}</span>
+                                <h3>{{ $country->name ?? 'Data negara tidak tersedia' }}</h3>
+                                <p>
+                                    {{ $country->region ?? 'Wilayah belum tersedia' }}
+                                    @if (!empty($country?->currency_code))
+                                        · {{ $country->currency_code }}
+                                    @endif
+                                </p>
+                            </div>
+                            <span class="sg-risk-pill {{ $riskClass }}">
+                                <span class="sg-risk-dot"></span>
+                                {{ $riskLabel }}
+                            </span>
+                        </div>
 
-                        <div class="col-lg-6">
-                            <div class="card section-card p-4 h-100">
-                                <div class="d-flex justify-content-between align-items-start mb-4">
-                                    <div>
-                                        <h3 class="fw-bold mb-1">{{ $country->name }}</h3>
-                                        <div class="text-muted">
-                                            {{ $country->region }} · {{ $country->currency_code }}
-                                        </div>
-                                    </div>
-
-                                    <span class="badge {{ riskBadgeClass($riskLevel) }}">
-                                        {{ $riskLevel }} Risk
-                                    </span>
+                        <div class="sg-compare-metric-grid">
+                            <div class="sg-compare-metric">
+                                <span class="sg-compare-icon"><i class="bi bi-bank"></i></span>
+                                <div>
+                                    <span>PDB</span>
+                                    <strong>
+                                        {{ $economy && $economy->gdp ? '$'.number_format($economy->gdp / 1000000000000, 2, ',', '.').' triliun' : '-' }}
+                                    </strong>
+                                    <small>Tahun {{ $economy->year ?? '-' }}</small>
                                 </div>
+                            </div>
 
-                                <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <div class="metric-box">
-                                            <div class="small-label">PDB</div>
-                                            <h5 class="fw-bold mb-0">
-                                                {{ $economy && $economy->gdp ? '$' . number_format($economy->gdp / 1000000000000, 2) . ' triliun' : '-' }}
-                                            </h5>
-                                            <small class="text-muted">
-                                                Tahun {{ $economy->year ?? '-' }}
-                                            </small>
-                                        </div>
-                                    </div>
+                            <div class="sg-compare-metric">
+                                <span class="sg-compare-icon"><i class="bi bi-graph-up-arrow"></i></span>
+                                <div>
+                                    <span>Inflasi</span>
+                                    <strong>{{ $economy && $economy->inflation !== null ? number_format($economy->inflation, 2, ',', '.').'%' : '-' }}</strong>
+                                    <small>Populasi {{ $economy && $economy->population ? number_format($economy->population, 0, ',', '.') : '-' }}</small>
+                                </div>
+                            </div>
 
-                                    <div class="col-md-6">
-                                        <div class="metric-box">
-                                            <div class="small-label">Inflasi</div>
-                                            <h5 class="fw-bold mb-0">
-                                                {{ $economy->inflation ?? '-' }}%
-                                            </h5>
-                                            <small class="text-muted">
-                                                Populasi: {{ $economy && $economy->population ? number_format($economy->population) : '-' }}
-                                            </small>
-                                        </div>
-                                    </div>
+                            <div class="sg-compare-metric">
+                                <span class="sg-compare-icon"><i class="bi bi-cloud-sun"></i></span>
+                                <div>
+                                    <span>Cuaca</span>
+                                    <strong>{{ $weather && $weather->temperature !== null ? number_format($weather->temperature, 1, ',', '.').'°C' : '-' }}</strong>
+                                    <small>{{ $weather->weather_status ?? 'Status belum tersedia' }}</small>
+                                </div>
+                            </div>
 
-                                    <div class="col-md-6">
-                                        <div class="metric-box">
-                                            <div class="small-label">Cuaca</div>
-                                            <h5 class="fw-bold mb-0">
-                                                {{ $weather->temperature ?? '-' }}°C
-                                            </h5>
-                                            <small class="text-muted">
-                                                {{ $weather->weather_status ?? '-' }}
-                                            </small>
-                                        </div>
-                                    </div>
+                            <div class="sg-compare-metric">
+                                <span class="sg-compare-icon"><i class="bi bi-wind"></i></span>
+                                <div>
+                                    <span>Angin & hujan</span>
+                                    <strong>{{ $weather && $weather->wind_speed !== null ? number_format($weather->wind_speed, 1, ',', '.').' km/jam' : '-' }}</strong>
+                                    <small>Curah hujan {{ $weather && $weather->rainfall !== null ? number_format($weather->rainfall, 1, ',', '.').' mm' : '-' }}</small>
+                                </div>
+                            </div>
 
-                                    <div class="col-md-6">
-                                        <div class="metric-box">
-                                            <div class="small-label">Kecepatan Angin</div>
-                                            <h5 class="fw-bold mb-0">
-                                                {{ $weather->wind_speed ?? '-' }} km/jam
-                                            </h5>
-                                            <small class="text-muted">
-                                                Curah hujan: {{ $weather->rainfall ?? '-' }} mm
-                                            </small>
-                                        </div>
-                                    </div>
+                            <div class="sg-compare-metric">
+                                <span class="sg-compare-icon"><i class="bi bi-currency-exchange"></i></span>
+                                <div>
+                                    <span>Nilai tukar</span>
+                                    <strong>
+                                        {{ $currency && $currency->rate !== null ? number_format($currency->rate, 6, ',', '.') : '-' }}
+                                        {{ $currency->target_currency ?? '' }}
+                                    </strong>
+                                    <small>Basis {{ $currency->base_currency ?? 'USD' }}</small>
+                                </div>
+                            </div>
 
-                                    <div class="col-md-6">
-                                        <div class="metric-box">
-                                            <div class="small-label">Kurs</div>
-                                            <h5 class="fw-bold mb-0">
-                                                {{ $currency->rate ?? '-' }} {{ $currency->target_currency ?? '-' }}
-                                            </h5>
-                                            <small class="text-muted">
-                                                1 {{ $currency->base_currency ?? 'USD' }}
-                                            </small>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="metric-box">
-                                            <div class="small-label">Skor Risiko</div>
-                                            <h5 class="fw-bold mb-0">
-                                                {{ $risk->total_score ?? 0 }}/100
-                                            </h5>
-                                            <small class="text-muted">
-                                                {{ $risk->recommendation ?? '-' }}
-                                            </small>
-                                        </div>
-                                    </div>
+                            <div class="sg-compare-metric sg-compare-risk-metric">
+                                <span class="sg-compare-icon"><i class="bi bi-shield-exclamation"></i></span>
+                                <div>
+                                    <span>Skor risiko</span>
+                                    <strong>{{ $risk->total_score ?? 0 }}/100</strong>
+                                    <small>{{ $risk->recommendation ?? 'Rekomendasi belum tersedia.' }}</small>
                                 </div>
                             </div>
                         </div>
-                    @endif
-                @endforeach
-            </div>
-
-            @if ($countryA && $countryB)
-                @php
-                    $riskA = $countryA['risk']->total_score ?? 0;
-                    $riskB = $countryB['risk']->total_score ?? 0;
-
-                    $saferCountry = $countryA['country']->name;
-
-                    if ($riskB < $riskA) {
-                        $saferCountry = $countryB['country']->name;
-                    }
-
-                    if ($riskA === $riskB) {
-                        $saferCountry = 'Kedua negara memiliki risiko yang sama';
-                    }
-                @endphp
-
-                <div class="card section-card p-4 mt-4">
-                    <h5 class="fw-bold">Kesimpulan Perbandingan</h5>
-
-                    @if ($riskA === $riskB)
-                        <p class="text-muted mb-0">
-                            Kedua negara memiliki skor risiko yang sama. Keputusan impor perlu mempertimbangkan faktor tambahan seperti biaya pengiriman, ketersediaan pelabuhan, dan kebutuhan bisnis.
-                        </p>
-                    @else
-                        <p class="text-muted mb-0">
-                            Berdasarkan skor risiko saat ini, negara yang lebih aman untuk dipertimbangkan adalah
-                            <strong>{{ $saferCountry }}</strong>.
-                            Perbandingan ini dihitung dari kombinasi indikator ekonomi, cuaca, kurs mata uang, berita, dan pelabuhan.
-                        </p>
-                    @endif
+                    </article>
                 </div>
-            @endif
-        </main>
-    </div>
-</div>
-</body>
-</html>
+            @endforeach
+        </div>
+    </section>
+
+    <section class="sg-section">
+        <article class="sg-card sg-comparison-conclusion">
+            <span class="sg-conclusion-icon"><i class="bi bi-lightbulb"></i></span>
+            <div>
+                <span class="sg-eyebrow">Kesimpulan sistem</span>
+                <h3>{{ $saferCountry === 'Seimbang' ? 'Hasil perbandingan seimbang' : $saferCountry.' lebih direkomendasikan' }}</h3>
+                <p>{{ $comparisonText }}</p>
+                <small>
+                    Kesimpulan ini berdasarkan skor risiko yang tersimpan dan bukan satu-satunya dasar pengambilan keputusan.
+                </small>
+            </div>
+        </article>
+    </section>
+@endsection

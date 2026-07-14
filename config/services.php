@@ -14,6 +14,11 @@ return [
     |
     */
 
+    'gnews' => [
+        'key' => env('GNEWS_API_KEY'),
+        'base_url' => env('GNEWS_BASE_URL', 'https://gnews.io/api/v4'),
+    ],
+
     'postmark' => [
         'key' => env('POSTMARK_API_KEY'),
     ],
