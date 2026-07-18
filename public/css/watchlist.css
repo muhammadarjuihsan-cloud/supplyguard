@@ -1,0 +1,752 @@
+.sg-watch-page {
+    display: grid;
+    gap: 1.25rem;
+}
+
+.sg-watch-hero {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.sg-watch-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: #2463eb;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.sg-watch-hero h2 {
+    margin: 0.5rem 0 0.45rem;
+    color: #152238;
+    font-size: clamp(1.65rem, 3vw, 2.25rem);
+    font-weight: 750;
+}
+
+.sg-watch-hero p {
+    max-width: 760px;
+    margin: 0;
+    color: #667085;
+    line-height: 1.7;
+}
+
+.sg-watch-add-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 44px;
+    border-radius: 11px;
+    font-size: 0.84rem;
+    font-weight: 750;
+    white-space: nowrap;
+}
+
+.sg-watch-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.sg-watch-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    min-height: 108px;
+    padding: 1.1rem;
+    border: 1px solid #e5eaf2;
+    border-radius: 17px;
+    background: #ffffff;
+    box-shadow: 0 10px 28px rgba(31, 42, 68, 0.055);
+}
+
+.sg-watch-stat-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    border-radius: 13px;
+    color: #2463eb;
+    background: #edf3ff;
+}
+
+.sg-watch-stat-icon.is-danger {
+    color: #c83c3c;
+    background: #fdecec;
+}
+
+.sg-watch-stat-icon.is-warning {
+    color: #a66f09;
+    background: #fff4d9;
+}
+
+.sg-watch-stat-icon.is-success {
+    color: #087554;
+    background: #e5f7f0;
+}
+
+.sg-watch-stat small,
+.sg-watch-stat strong {
+    display: block;
+}
+
+.sg-watch-stat small {
+    margin-bottom: 0.32rem;
+    color: #7a8495;
+    font-size: 0.78rem;
+    font-weight: 650;
+}
+
+.sg-watch-stat strong {
+    color: #152238;
+    font-size: 1.45rem;
+    line-height: 1;
+}
+
+.sg-watch-main-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(330px, 0.6fr);
+    gap: 1rem;
+}
+
+.sg-watch-panel {
+    overflow: hidden;
+    border: 1px solid #e5eaf2;
+    border-radius: 19px;
+    background: #ffffff;
+    box-shadow: 0 12px 30px rgba(31, 42, 68, 0.055);
+}
+
+.sg-watch-panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.15rem 1.25rem;
+    border-bottom: 1px solid #edf0f5;
+}
+
+.sg-watch-panel-head span:first-child {
+    display: block;
+    color: #2463eb;
+    font-size: 0.71rem;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.sg-watch-panel-head h3 {
+    margin: 0.22rem 0 0;
+    color: #1d2939;
+    font-size: 1rem;
+    font-weight: 750;
+}
+
+.sg-watch-reset-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: #5a6a80;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.sg-watch-reset-link:hover {
+    color: #2463eb;
+}
+
+.sg-watch-filter {
+    display: grid;
+    grid-template-columns: minmax(250px, 1fr) minmax(170px, 0.45fr) auto;
+    align-items: end;
+    gap: 0.85rem;
+    padding: 1.2rem;
+}
+
+.sg-watch-field {
+    display: grid;
+    gap: 0.42rem;
+}
+
+.sg-watch-field label {
+    color: #344054;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.sg-watch-field input,
+.sg-watch-field select {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.68rem 0.78rem;
+    border: 1px solid #dfe4ec;
+    border-radius: 11px;
+    background: #ffffff;
+    color: #283548;
+    font-size: 0.84rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sg-watch-field input:focus,
+.sg-watch-field select:focus {
+    border-color: #5b8cff;
+    box-shadow: 0 0 0 4px rgba(36, 99, 235, 0.1);
+}
+
+.sg-watch-input-icon {
+    position: relative;
+}
+
+.sg-watch-input-icon i {
+    position: absolute;
+    top: 50%;
+    left: 0.8rem;
+    color: #98a2b3;
+    transform: translateY(-50%);
+}
+
+.sg-watch-input-icon input {
+    padding-left: 2.35rem;
+}
+
+.sg-watch-filter-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.sg-watch-filter-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    min-height: 44px;
+    border-radius: 11px;
+    font-size: 0.83rem;
+    font-weight: 750;
+    white-space: nowrap;
+}
+
+.sg-watch-distribution-body {
+    display: grid;
+    grid-template-columns: minmax(150px, 1fr) minmax(145px, 0.8fr);
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem;
+}
+
+.sg-watch-chart-wrap {
+    height: 190px;
+}
+
+.sg-watch-legend {
+    display: grid;
+    gap: 0.55rem;
+}
+
+.sg-watch-legend > div {
+    display: grid;
+    grid-template-columns: 10px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.55rem 0.65rem;
+    border: 1px solid #edf0f5;
+    border-radius: 10px;
+    background: #fbfcfe;
+}
+
+.sg-watch-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.sg-watch-dot.is-high {
+    background: #e24d4d;
+}
+
+.sg-watch-dot.is-medium {
+    background: #e5a426;
+}
+
+.sg-watch-dot.is-low {
+    background: #18a875;
+}
+
+.sg-watch-dot.is-empty {
+    background: #98a2b3;
+}
+
+.sg-watch-legend small {
+    color: #667085;
+    font-size: 0.73rem;
+}
+
+.sg-watch-legend strong {
+    color: #1d2939;
+    font-size: 0.86rem;
+}
+
+.sg-watch-result-badge {
+    display: inline-flex !important;
+    align-items: center;
+    padding: 0.4rem 0.65rem;
+    border-radius: 999px;
+    color: #2455c3 !important;
+    background: #edf3ff;
+    font-size: 0.7rem !important;
+    font-weight: 750;
+    letter-spacing: normal !important;
+    text-transform: none !important;
+}
+
+.sg-watch-card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    padding: 1.15rem;
+}
+
+.sg-watch-country-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid #e6eaf1;
+    border-radius: 16px;
+    background: #ffffff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.sg-watch-country-card:hover {
+    transform: translateY(-2px);
+    border-color: #cfdcf3;
+    box-shadow: 0 12px 28px rgba(36, 99, 235, 0.08);
+}
+
+.sg-watch-country-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.8rem;
+    padding: 1rem 1rem 0;
+}
+
+.sg-watch-country-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+}
+
+.sg-watch-flag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    border-radius: 12px;
+    color: #2463eb;
+    background: #edf3ff;
+    font-size: 0.73rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+}
+
+.sg-watch-country-title h4 {
+    margin: 0;
+    color: #1d2939;
+    font-size: 1rem;
+    font-weight: 750;
+}
+
+.sg-watch-country-title span:last-child {
+    display: block;
+    margin-top: 0.2rem;
+    color: #8a95a6;
+    font-size: 0.72rem;
+}
+
+.sg-watch-risk-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 750;
+    white-space: nowrap;
+}
+
+.sg-watch-risk-badge.is-high {
+    color: #b33333;
+    background: #fdecec;
+}
+
+.sg-watch-risk-badge.is-medium {
+    color: #946300;
+    background: #fff4d9;
+}
+
+.sg-watch-risk-badge.is-low {
+    color: #087554;
+    background: #e5f7f0;
+}
+
+.sg-watch-risk-badge.is-unavailable {
+    color: #5f6b7c;
+    background: #eef1f4;
+}
+
+.sg-watch-score-block {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.sg-watch-score-block small,
+.sg-watch-score-block strong {
+    display: block;
+}
+
+.sg-watch-score-block small {
+    margin-bottom: 0.25rem;
+    color: #7a8495;
+    font-size: 0.73rem;
+}
+
+.sg-watch-score-block strong {
+    color: #152238;
+    font-size: 1.65rem;
+    line-height: 1;
+}
+
+.sg-watch-score-block > span {
+    color: #8a95a6;
+    font-size: 0.7rem;
+}
+
+.sg-watch-component-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.45rem;
+    padding: 0 1rem 0.9rem;
+}
+
+.sg-watch-component-grid > div {
+    min-width: 0;
+    padding: 0.55rem 0.4rem;
+    border-radius: 10px;
+    background: #f6f8fb;
+    text-align: center;
+}
+
+.sg-watch-component-grid small,
+.sg-watch-component-grid strong {
+    display: block;
+}
+
+.sg-watch-component-grid small {
+    overflow: hidden;
+    color: #8a95a6;
+    font-size: 0.62rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sg-watch-component-grid strong {
+    margin-top: 0.2rem;
+    color: #29374b;
+    font-size: 0.82rem;
+}
+
+.sg-watch-data-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    padding: 0 1rem 0.9rem;
+}
+
+.sg-watch-data-summary span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.32rem;
+    padding: 0.35rem 0.5rem;
+    border-radius: 8px;
+    color: #59697e;
+    background: #f1f4f8;
+    font-size: 0.68rem;
+    font-weight: 650;
+}
+
+.sg-watch-note-form {
+    display: grid;
+    gap: 0.42rem;
+    padding: 0.8rem 1rem;
+    border-top: 1px solid #edf0f5;
+    background: #fbfcfe;
+}
+
+.sg-watch-note-form label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: #667085;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.sg-watch-note-form > div {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 38px;
+    gap: 0.45rem;
+}
+
+.sg-watch-note-form input {
+    width: 100%;
+    min-height: 38px;
+    padding: 0.55rem 0.65rem;
+    border: 1px solid #dfe4ec;
+    border-radius: 9px;
+    color: #344054;
+    font-size: 0.76rem;
+    outline: none;
+}
+
+.sg-watch-note-form input:focus {
+    border-color: #5b8cff;
+    box-shadow: 0 0 0 3px rgba(36, 99, 235, 0.09);
+}
+
+.sg-watch-note-form button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 9px;
+    color: #ffffff;
+    background: #2463eb;
+}
+
+.sg-watch-country-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.8rem 1rem;
+    border-top: 1px solid #edf0f5;
+}
+
+.sg-watch-detail-link,
+.sg-watch-compare-link,
+.sg-watch-delete-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    min-height: 36px;
+    border-radius: 9px;
+    font-size: 0.72rem;
+    font-weight: 750;
+    text-decoration: none;
+}
+
+.sg-watch-detail-link {
+    flex: 1;
+    color: #ffffff;
+    background: #2463eb;
+}
+
+.sg-watch-detail-link:hover {
+    color: #ffffff;
+    background: #1f56cf;
+}
+
+.sg-watch-compare-link {
+    flex: 1;
+    color: #344054;
+    background: #eef1f5;
+}
+
+.sg-watch-compare-link:hover {
+    color: #2463eb;
+}
+
+.sg-watch-delete-button {
+    width: 36px;
+    border: 0;
+    color: #b33333;
+    background: #fdecec;
+}
+
+.sg-watch-pagination {
+    display: flex;
+    justify-content: center;
+    padding: 1rem 1.15rem 1.15rem;
+    border-top: 1px solid #edf0f5;
+}
+
+.sg-watch-pagination .page-link {
+    color: #344054;
+    border-color: #e4e7ec;
+}
+
+.sg-watch-pagination .page-item.active .page-link {
+    border-color: #2463eb;
+    background: #2463eb;
+}
+
+.sg-watch-empty {
+    display: grid;
+    justify-items: center;
+    padding: 3.5rem 1rem;
+    text-align: center;
+}
+
+.sg-watch-empty > i {
+    margin-bottom: 0.75rem;
+    color: #98a2b3;
+    font-size: 2.2rem;
+}
+
+.sg-watch-empty h3 {
+    margin: 0 0 0.35rem;
+    color: #1d2939;
+    font-size: 1.05rem;
+    font-weight: 750;
+}
+
+.sg-watch-empty p {
+    margin: 0 0 1rem;
+    color: #7b8798;
+}
+
+.sg-watch-modal {
+    border: 0;
+    border-radius: 18px;
+}
+
+.sg-watch-modal .modal-header,
+.sg-watch-modal .modal-footer {
+    border-color: #edf0f5;
+}
+
+.sg-watch-modal .modal-header span {
+    color: #2463eb;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.sg-watch-modal .modal-title {
+    margin-top: 0.2rem;
+    color: #1d2939;
+    font-size: 1rem;
+    font-weight: 750;
+}
+
+.sg-watch-modal-field {
+    display: grid;
+    gap: 0.45rem;
+    margin-bottom: 1rem;
+}
+
+.sg-watch-modal-field:last-child {
+    margin-bottom: 0;
+}
+
+.sg-watch-modal-field label {
+    color: #344054;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.sg-watch-modal-field select,
+.sg-watch-modal-field textarea {
+    width: 100%;
+    padding: 0.7rem 0.8rem;
+    border: 1px solid #dfe4ec;
+    border-radius: 11px;
+    color: #344054;
+    font-size: 0.84rem;
+    outline: none;
+}
+
+.sg-watch-modal-field select:focus,
+.sg-watch-modal-field textarea:focus {
+    border-color: #5b8cff;
+    box-shadow: 0 0 0 4px rgba(36, 99, 235, 0.1);
+}
+
+.sg-watch-modal-field small {
+    color: #98a2b3;
+    font-size: 0.7rem;
+}
+
+@media (max-width: 1199.98px) {
+    .sg-watch-stat-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .sg-watch-main-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 899.98px) {
+    .sg-watch-filter,
+    .sg-watch-card-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .sg-watch-hero {
+        flex-direction: column;
+    }
+
+    .sg-watch-add-button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .sg-watch-stat-grid,
+    .sg-watch-distribution-body {
+        grid-template-columns: 1fr;
+    }
+
+    .sg-watch-filter-actions {
+        width: 100%;
+    }
+
+    .sg-watch-filter-actions .btn {
+        flex: 1;
+    }
+
+    .sg-watch-panel-head,
+    .sg-watch-country-head {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .sg-watch-component-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .sg-watch-country-actions {
+        flex-wrap: wrap;
+    }
+
+    .sg-watch-delete-button {
+        width: 100%;
+    }
+}

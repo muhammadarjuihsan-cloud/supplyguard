@@ -455,22 +455,15 @@ class RiskScoringService
     }
 
     /**
-     * Menyimpan hasil terbaru dan riwayat harian.
+     * Menyimpan satu skor terbaru per negara dan riwayat harian.
+     *
+     * Tabel risk_scores hanya menyimpan kondisi terkini.
+     * Tabel risk_histories menyimpan satu riwayat per negara per tanggal.
+     * Duplikat lama pada risk_scores dibersihkan otomatis saat negara dihitung.
      */
     private function saveResult(array $result): void
     {
         DB::transaction(function () use ($result): void {
-            $existingRiskId = DB::table('risk_scores')
-                ->where(
-                    'country_id',
-                    $result['country_id']
-                )
-                ->where(
-                    'score_date',
-                    $result['score_date']
-                )
-                ->value('id');
-
             $riskData = [
                 'weather_score' =>
                     $result['weather_score'],
@@ -493,10 +486,36 @@ class RiskScoringService
                 'updated_at' => now(),
             ];
 
-            if ($existingRiskId) {
+            /*
+             * risk_scores hanya boleh memiliki satu baris per negara.
+             * Ambil data terbaru sebagai baris utama, lalu hapus duplikat lama.
+             */
+            $riskIds = DB::table('risk_scores')
+                ->where(
+                    'country_id',
+                    $result['country_id']
+                )
+                ->orderByDesc('score_date')
+                ->orderByDesc('id')
+                ->pluck('id');
+
+            $currentRiskId = $riskIds->first();
+
+            if ($currentRiskId !== null) {
                 DB::table('risk_scores')
-                    ->where('id', $existingRiskId)
+                    ->where('id', $currentRiskId)
                     ->update($riskData);
+
+                $duplicateRiskIds = $riskIds
+                    ->slice(1)
+                    ->values()
+                    ->all();
+
+                if ($duplicateRiskIds !== []) {
+                    DB::table('risk_scores')
+                        ->whereIn('id', $duplicateRiskIds)
+                        ->delete();
+                }
             } else {
                 DB::table('risk_scores')->insert(
                     array_merge(
@@ -510,19 +529,11 @@ class RiskScoringService
                 );
             }
 
-            $existingHistoryId = DB::table(
-                'risk_histories'
-            )
-                ->where(
-                    'country_id',
-                    $result['country_id']
-                )
-                ->where(
-                    'recorded_date',
-                    $result['score_date']
-                )
-                ->value('id');
-
+            /*
+             * Riwayat tetap disimpan per negara per tanggal.
+             * Jika proses dijalankan ulang pada hari yang sama,
+             * riwayat hari tersebut cukup diperbarui.
+             */
             $historyData = [
                 'total_score' =>
                     $result['total_score'],
@@ -533,10 +544,35 @@ class RiskScoringService
                 'updated_at' => now(),
             ];
 
-            if ($existingHistoryId) {
+            $historyIds = DB::table('risk_histories')
+                ->where(
+                    'country_id',
+                    $result['country_id']
+                )
+                ->where(
+                    'recorded_date',
+                    $result['score_date']
+                )
+                ->orderByDesc('id')
+                ->pluck('id');
+
+            $currentHistoryId = $historyIds->first();
+
+            if ($currentHistoryId !== null) {
                 DB::table('risk_histories')
-                    ->where('id', $existingHistoryId)
+                    ->where('id', $currentHistoryId)
                     ->update($historyData);
+
+                $duplicateHistoryIds = $historyIds
+                    ->slice(1)
+                    ->values()
+                    ->all();
+
+                if ($duplicateHistoryIds !== []) {
+                    DB::table('risk_histories')
+                        ->whereIn('id', $duplicateHistoryIds)
+                        ->delete();
+                }
             } else {
                 DB::table('risk_histories')->insert(
                     array_merge(

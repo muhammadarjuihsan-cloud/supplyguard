@@ -14,6 +14,15 @@ return [
     |
     */
 
+
+    'rest_countries' => [
+        'key' => env('REST_COUNTRIES_API_KEY'),
+        'base_url' => env(
+            'REST_COUNTRIES_BASE_URL',
+            'https://api.restcountries.com/countries/v5'
+        ),
+    ],
+
     'gnews' => [
         'key' => env('GNEWS_API_KEY'),
         'base_url' => env('GNEWS_BASE_URL', 'https://gnews.io/api/v4'),

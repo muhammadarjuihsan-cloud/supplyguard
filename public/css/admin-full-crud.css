@@ -1,0 +1,93 @@
+.sg-icon-edit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 10px;
+    color: #2455c3;
+    background: #edf3ff;
+    transition: transform 0.18s ease, background 0.18s ease;
+}
+
+.sg-icon-edit:hover {
+    color: #1745a8;
+    background: #dfeaff;
+    transform: translateY(-1px);
+}
+
+.sg-crud-modal {
+    border: 0;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.sg-crud-modal .modal-header,
+.sg-crud-modal .modal-footer {
+    border-color: #edf0f5;
+}
+
+.sg-modal-eyebrow {
+    display: block;
+    margin-bottom: 0.2rem;
+    color: #2463eb;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.sg-crud-modal .modal-title {
+    color: #1d2939;
+    font-size: 1rem;
+    font-weight: 750;
+}
+
+.sg-form-note {
+    display: block;
+    margin-top: 0.4rem;
+    color: #946300;
+    font-size: 0.72rem;
+}
+
+.sg-word-chip-group {
+    display: inline-flex;
+    align-items: stretch;
+    gap: 0.2rem;
+}
+
+.sg-word-chip-group form {
+    display: flex;
+    margin: 0;
+}
+
+.sg-word-chip-delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 31px;
+    min-width: 31px;
+    border: 0;
+    border-radius: 9px;
+    font-size: 0.7rem;
+}
+
+.sg-word-chip-delete.is-positive {
+    color: #087554;
+    background: #def3eb;
+}
+
+.sg-word-chip-delete.is-negative {
+    color: #b33333;
+    background: #fde3e3;
+}
+
+.sg-word-chip-delete:hover {
+    filter: brightness(0.96);
+}
+
+.sg-word-chip .bi-pencil {
+    margin-left: 0.25rem;
+    font-size: 0.64rem;
+}

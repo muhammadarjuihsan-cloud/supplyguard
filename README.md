@@ -1,59 +1,417 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# SupplyGuard
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Global Supply Chain Risk Intelligence Platform**
 
-## About Laravel
+SupplyGuard adalah aplikasi berbasis Laravel yang digunakan untuk memantau dan
+menganalisis risiko rantai pasok global berdasarkan data negara, ekonomi,
+cuaca, nilai tukar, berita, sentimen, dan pelabuhan.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Aplikasi mengambil data dari beberapa API eksternal, menyimpannya ke MySQL,
+mengolahnya dengan analisis sentimen dan Weighted Risk Model, lalu
+menampilkannya melalui dashboard, grafik, peta, perbandingan negara, watchlist,
+halaman admin, dan REST API internal.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Identitas Project
 
-## Learning Laravel
+- Mata kuliah: Pemrograman Web
+- Jenis tugas: Project UAS
+- Nama mahasiswa: **muhammad arju ihsan**
+- NIM: **240180113**
+- Kelas: **A3**
+- Dosen pengampu: **muhammad ikhwani S.Pd.i., m.sc**
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Tujuan Sistem
 
-## Laravel Sponsors
+SupplyGuard membantu pengguna memahami kondisi risiko rantai pasok suatu negara
+dengan menggabungkan beberapa indikator:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- kondisi cuaca;
+- inflasi;
+- perubahan nilai tukar;
+- sentimen berita;
+- ketersediaan dan lokasi pelabuhan.
 
-### Premium Partners
+Hasil akhirnya berupa skor risiko `0–100`, kategori risiko, rekomendasi, grafik,
+dan data pendukung lainnya.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## Teknologi
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- PHP 8.2+
+- Laravel 12
+- MySQL
+- Bootstrap 5
+- JavaScript
+- Chart.js
+- Leaflet
+- OpenStreetMap
+- Composer
+- Git
+- GitHub
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Sumber API Eksternal
 
-## Security Vulnerabilities
+| API | Fungsi |
+|---|---|
+| REST Countries API v5 | Data negara, kode negara, wilayah, mata uang, bahasa, dan koordinat |
+| Open-Meteo | Data suhu, curah hujan, dan kecepatan angin |
+| World Bank API | GDP, inflasi, populasi, dan indikator ekonomi |
+| Exchange Rate API | Nilai tukar mata uang |
+| GNews API | Berita global berdasarkan negara |
+| World Port Index | Data dan koordinat pelabuhan |
+| OpenStreetMap | Peta digital pada Leaflet |
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+API key disimpan pada file `.env` dan tidak boleh dimasukkan ke GitHub.
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Fitur Utama
+
+### Pengguna
+
+1. Autentikasi pengguna
+2. Dashboard negara
+3. Perbandingan negara
+4. Favorite Monitoring List
+5. Visualisasi data
+6. Lokasi pelabuhan
+7. News Intelligence
+8. Monitoring cuaca
+9. Analisis nilai tukar
+10. Risk Scoring
+11. REST API Documentation
+12. Peta Leaflet
+13. Grafik Chart.js
+14. Riwayat risiko
+
+### Administrator
+
+1. Dashboard administrator
+2. Manajemen pengguna
+3. Manajemen dataset pelabuhan
+4. Manajemen artikel
+5. Manajemen kamus sentimen
+6. Log request API
+7. Menjalankan sinkronisasi data
+8. Menjalankan ulang analisis sentimen
+9. Menjalankan ulang perhitungan risiko
+
+---
+
+## Data Saat Ini
+
+Hasil sinkronisasi terakhir:
+
+- 250 negara
+- 3.641 pelabuhan
+- 1.107 berita
+- 250 skor risiko
+- 128 negara berisiko rendah
+- 121 negara berisiko sedang
+- 1 negara berisiko tinggi
+- 115 berita positif
+- 846 berita netral
+- 146 berita negatif
+
+Jumlah data dapat berubah setelah sinkronisasi berikutnya.
+
+---
+
+## Weighted Risk Model
+
+SupplyGuard menggunakan lima komponen risiko:
+
+| Komponen | Bobot |
+|---|---:|
+| Cuaca | 25% |
+| Inflasi | 25% |
+| Nilai tukar | 20% |
+| Sentimen berita | 20% |
+| Pelabuhan | 10% |
+| **Total** | **100%** |
+
+Rumus umum:
+
+```text
+Total Risk =
+(Weather × 25%) +
+(Inflation × 25%) +
+(Currency × 20%) +
+(News × 20%) +
+(Port × 10%)
+```
+
+Kategori risiko:
+
+| Skor | Level |
+|---:|---|
+| 0–30 | Low |
+| 31–60 | Medium |
+| 61–100 | High |
+
+Apabila suatu komponen belum memiliki data, sistem menggunakan nilai netral agar
+perhitungan tetap dapat dilakukan dan kelengkapan data tetap ditampilkan.
+
+---
+
+## Analisis Sentimen
+
+Analisis sentimen memakai pendekatan lexicon-based dengan kamus kata positif dan
+negatif yang dikelola melalui halaman administrator.
+
+Alur analisis:
+
+```text
+Judul dan deskripsi berita
+        ↓
+Normalisasi teks
+        ↓
+Pencocokan kamus positif dan negatif
+        ↓
+Perhitungan skor kata
+        ↓
+Positive / Neutral / Negative
+```
+
+Command:
+
+```powershell
+php artisan supplyguard:analyze-sentiment --refresh-lexicon
+```
+
+---
+
+## Instalasi
+
+### 1. Persyaratan
+
+Pastikan perangkat sudah memiliki:
+
+- PHP 8.2 atau lebih baru
+- Composer
+- MySQL atau XAMPP
+- Git
+- koneksi internet untuk API eksternal
+
+### 2. Clone repository
+
+```powershell
+git clone https://github.com/muhammadarjuihsan-cloud/supplyguard.git
+cd supplyguard
+```
+
+### 3. Instal dependency
+
+```powershell
+composer install
+```
+
+### 4. Buat file environment
+
+```powershell
+copy .env.example .env
+php artisan key:generate
+```
+
+### 5. Konfigurasi database
+
+Contoh:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=supplyguard
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### 6. Konfigurasi API
+
+Tambahkan API key pada `.env`:
+
+```env
+REST_COUNTRIES_API_KEY=
+REST_COUNTRIES_BASE_URL=https://api.restcountries.com/countries/v5
+
+GNEWS_API_KEY=
+```
+
+Tambahkan konfigurasi API lain sesuai isi `.env.example`.
+
+### 7. Jalankan migration dan seeder
+
+```powershell
+php artisan migrate
+php artisan db:seed
+```
+
+> Jangan menjalankan `php artisan migrate:fresh` pada database yang sudah
+> berisi data karena perintah tersebut menghapus seluruh tabel.
+
+### 8. Jalankan aplikasi
+
+```powershell
+php artisan optimize:clear
+php artisan serve
+```
+
+Buka:
+
+```text
+http://127.0.0.1:8000
+```
+
+---
+
+## Command Sinkronisasi
+
+```powershell
+php artisan supplyguard:sync-countries
+php artisan supplyguard:sync-weather
+php artisan supplyguard:sync-currency
+php artisan supplyguard:sync-economy
+php artisan supplyguard:sync-ports
+php artisan supplyguard:sync-news --offset=0 --limit=10
+php artisan supplyguard:analyze-sentiment --refresh-lexicon
+php artisan supplyguard:calculate-risk
+```
+
+Apabila XAMPP lokal mengalami masalah sertifikat SSL, beberapa command mendukung
+opsi:
+
+```powershell
+--insecure
+```
+
+Opsi tersebut hanya digunakan untuk pengembangan lokal.
+
+---
+
+## Scheduler
+
+Jadwal otomatis tersedia pada `routes/console.php`.
+
+Lihat jadwal:
+
+```powershell
+php artisan schedule:list
+```
+
+Jalankan scheduler saat pengembangan:
+
+```powershell
+php artisan schedule:work
+```
+
+Log scheduler:
+
+```text
+storage/logs/supplyguard-scheduler.log
+```
+
+GNews global tidak dijadwalkan otomatis karena kuota API terbatas.
+
+---
+
+## REST API Internal
+
+| Method | Endpoint | Fungsi |
+|---|---|---|
+| GET | `/api/countries` | Daftar negara |
+| GET | `/api/risk` | Skor risiko negara |
+| GET | `/api/ports` | Data pelabuhan |
+| GET | `/api/news` | Berita dan sentimen |
+| GET | `/api/currency` | Kurs dan riwayat mata uang |
+
+Contoh:
+
+```text
+/api/countries?q=Indonesia
+/api/risk?country_id=3
+/api/ports?country_id=3&per_page=10
+/api/news?country_id=3&per_page=10
+/api/currency?country_id=3&history_limit=30
+```
+
+Dokumentasi interaktif tersedia pada:
+
+```text
+/rest-api
+```
+
+---
+
+## Struktur Alur Sistem
+
+```text
+API Eksternal
+      ↓
+Laravel Sync Commands
+      ↓
+Database MySQL
+      ↓
+Analisis Sentimen
+      ↓
+Weighted Risk Model
+      ↓
+risk_scores dan risk_histories
+      ↓
+Dashboard, Grafik, Peta, Admin, dan REST API
+```
+
+---
+
+## Keamanan
+
+- `.env` tidak boleh dikirim ke GitHub.
+- API key tidak ditulis langsung di source code.
+- Halaman administrator dilindungi berdasarkan role.
+- Validasi dilakukan pada form dan endpoint.
+- Data negara disinkronkan menggunakan `upsert`.
+- Pagination digunakan untuk mencegah pemuatan ribuan data sekaligus.
+
+---
+
+## Struktur Folder Penting
+
+```text
+app/Console/Commands
+app/Http/Controllers
+app/Services
+database/migrations
+database/seeders
+resources/views
+public/css
+routes/web.php
+routes/console.php
+tests
+docs
+```
+
+---
+
+## Catatan Pengumpulan
+
+Sebelum project dikumpulkan:
+
+1. hapus `.env` dari ZIP;
+2. hapus `vendor`, `node_modules`, `.git`, dan file log dari ZIP source;
+3. pastikan `.env.example` tersedia;
+4. sertakan export database `database/supplyguard.sql`;
+5. jalankan `php artisan optimize:clear`;
+6. lakukan commit dan push GitHub;
+7. uji login admin, login pengguna, dashboard, semua menu, CRUD, dan REST API.
+
+---
+
+## Lisensi
+
+Project ini dibuat untuk kebutuhan akademik UAS Pemrograman Web.

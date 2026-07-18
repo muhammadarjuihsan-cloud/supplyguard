@@ -1,0 +1,443 @@
+.sg-ap-page {
+    display: grid;
+    gap: 1.25rem;
+}
+
+.sg-ap-hero {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.sg-ap-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: #2463eb;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.sg-ap-hero h2 {
+    margin: 0.5rem 0 0.45rem;
+    color: #152238;
+    font-size: clamp(1.65rem, 3vw, 2.25rem);
+    font-weight: 750;
+}
+
+.sg-ap-hero p {
+    max-width: 760px;
+    margin: 0;
+    color: #667085;
+    line-height: 1.7;
+}
+
+.sg-ap-add-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 44px;
+    border-radius: 11px;
+    font-size: 0.82rem;
+    font-weight: 750;
+    white-space: nowrap;
+}
+
+.sg-ap-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.sg-ap-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    min-height: 104px;
+    padding: 1rem;
+    border: 1px solid #e5eaf2;
+    border-radius: 17px;
+    background: #ffffff;
+    box-shadow: 0 10px 28px rgba(31, 42, 68, 0.055);
+}
+
+.sg-ap-stat > span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    border-radius: 13px;
+    color: #2463eb;
+    background: #edf3ff;
+}
+
+.sg-ap-stat small,
+.sg-ap-stat strong {
+    display: block;
+}
+
+.sg-ap-stat small {
+    margin-bottom: 0.3rem;
+    color: #7a8495;
+    font-size: 0.74rem;
+    font-weight: 650;
+}
+
+.sg-ap-stat strong {
+    color: #152238;
+    font-size: 1.3rem;
+    line-height: 1;
+}
+
+.sg-ap-panel {
+    overflow: hidden;
+    border: 1px solid #e5eaf2;
+    border-radius: 19px;
+    background: #ffffff;
+    box-shadow: 0 12px 30px rgba(31, 42, 68, 0.055);
+}
+
+.sg-ap-panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.1rem 1.2rem;
+    border-bottom: 1px solid #edf0f5;
+}
+
+.sg-ap-panel-head span:first-child {
+    display: block;
+    color: #2463eb;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.sg-ap-panel-head h3 {
+    margin: 0.22rem 0 0;
+    color: #1d2939;
+    font-size: 0.98rem;
+    font-weight: 750;
+}
+
+.sg-ap-panel-head a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: #2463eb;
+    font-size: 0.74rem;
+    font-weight: 750;
+    text-decoration: none;
+}
+
+.sg-ap-filter {
+    display: grid;
+    grid-template-columns: minmax(250px, 1.4fr) minmax(190px, 0.7fr) minmax(170px, 0.6fr) auto;
+    align-items: end;
+    gap: 0.8rem;
+    padding: 1.15rem;
+}
+
+.sg-ap-field {
+    display: grid;
+    gap: 0.4rem;
+    min-width: 0;
+}
+
+.sg-ap-field label {
+    color: #344054;
+    font-size: 0.76rem;
+    font-weight: 700;
+}
+
+.sg-ap-field input,
+.sg-ap-field select {
+    width: 100%;
+    min-width: 0;
+    min-height: 42px;
+    padding: 0.62rem 0.7rem;
+    border: 1px solid #dfe4ec;
+    border-radius: 10px;
+    color: #344054;
+    background: #ffffff;
+    font-size: 0.79rem;
+    outline: none;
+}
+
+.sg-ap-field input:focus,
+.sg-ap-field select:focus {
+    border-color: #5b8cff;
+    box-shadow: 0 0 0 4px rgba(36, 99, 235, 0.1);
+}
+
+.sg-ap-input-icon {
+    position: relative;
+}
+
+.sg-ap-input-icon i {
+    position: absolute;
+    top: 50%;
+    left: 0.8rem;
+    color: #98a2b3;
+    transform: translateY(-50%);
+}
+
+.sg-ap-input-icon input {
+    padding-left: 2.35rem;
+}
+
+.sg-ap-filter-actions {
+    display: flex;
+    gap: 0.45rem;
+}
+
+.sg-ap-filter-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    min-height: 42px;
+    border-radius: 10px;
+    font-size: 0.78rem;
+    font-weight: 750;
+    white-space: nowrap;
+}
+
+.sg-ap-result-badge {
+    display: inline-flex !important;
+    align-items: center;
+    padding: 0.4rem 0.65rem;
+    border-radius: 999px;
+    color: #2455c3 !important;
+    background: #edf3ff;
+    font-size: 0.69rem !important;
+    font-weight: 750;
+    letter-spacing: normal !important;
+    text-transform: none !important;
+}
+
+.sg-ap-table {
+    margin: 0;
+}
+
+.sg-ap-table thead th {
+    padding: 0.78rem 0.85rem;
+    border-color: #edf0f5;
+    color: #667085;
+    background: #f8fafc;
+    font-size: 0.66rem;
+    font-weight: 750;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.sg-ap-table tbody td {
+    padding: 0.82rem 0.85rem;
+    border-color: #edf0f5;
+    color: #566274;
+    font-size: 0.74rem;
+}
+
+.sg-ap-name-cell {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    min-width: 250px;
+}
+
+.sg-ap-name-cell > span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+    border-radius: 10px;
+    color: #2463eb;
+    background: #edf3ff;
+}
+
+.sg-ap-name-cell strong,
+.sg-ap-name-cell small {
+    display: block;
+}
+
+.sg-ap-name-cell strong {
+    color: #1d2939;
+    font-size: 0.8rem;
+}
+
+.sg-ap-name-cell small {
+    max-width: 360px;
+    margin-top: 0.16rem;
+    color: #98a2b3;
+    font-size: 0.65rem;
+    line-height: 1.45;
+}
+
+.sg-ap-code,
+.sg-ap-coordinate {
+    display: inline-block;
+    padding: 0.3rem 0.45rem;
+    border-radius: 7px;
+    color: #344054;
+    background: #f1f4f8;
+    font-size: 0.67rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.sg-ap-date {
+    color: #8a95a6;
+    font-size: 0.67rem;
+    white-space: nowrap;
+}
+
+.sg-ap-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.42rem;
+}
+
+.sg-ap-edit-button,
+.sg-ap-delete-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: 0;
+    border-radius: 9px;
+}
+
+.sg-ap-edit-button {
+    color: #2455c3;
+    background: #edf3ff;
+}
+
+.sg-ap-delete-button {
+    color: #b33333;
+    background: #fdecec;
+}
+
+.sg-ap-pagination {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    border-top: 1px solid #edf0f5;
+}
+
+.sg-ap-pagination .page-link {
+    color: #344054;
+    border-color: #e4e7ec;
+}
+
+.sg-ap-pagination .page-item.active .page-link {
+    border-color: #2463eb;
+    background: #2463eb;
+}
+
+.sg-ap-empty {
+    display: grid;
+    justify-items: center;
+    padding: 3.5rem 1rem;
+    color: #7b8798;
+    text-align: center;
+}
+
+.sg-ap-empty > i {
+    margin-bottom: 0.75rem;
+    color: #98a2b3;
+    font-size: 2.2rem;
+}
+
+.sg-ap-empty h3 {
+    margin: 0 0 0.35rem;
+    color: #1d2939;
+    font-size: 1.05rem;
+    font-weight: 750;
+}
+
+.sg-ap-empty p {
+    margin: 0 0 1rem;
+}
+
+.sg-ap-modal {
+    border: 0;
+    border-radius: 18px;
+}
+
+.sg-ap-modal .modal-header,
+.sg-ap-modal .modal-footer {
+    border-color: #edf0f5;
+}
+
+.sg-ap-modal .modal-header span {
+    color: #2463eb;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.sg-ap-modal .modal-title {
+    margin-top: 0.18rem;
+    color: #1d2939;
+    font-size: 1rem;
+    font-weight: 750;
+}
+
+@media (max-width: 1299.98px) {
+    .sg-ap-stat-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .sg-ap-filter {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .sg-ap-search-field {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .sg-ap-hero {
+        flex-direction: column;
+    }
+
+    .sg-ap-add-button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .sg-ap-stat-grid,
+    .sg-ap-filter {
+        grid-template-columns: 1fr;
+    }
+
+    .sg-ap-search-field {
+        grid-column: auto;
+    }
+
+    .sg-ap-filter-actions {
+        width: 100%;
+    }
+
+    .sg-ap-filter-actions .btn {
+        flex: 1;
+    }
+
+    .sg-ap-panel-head {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

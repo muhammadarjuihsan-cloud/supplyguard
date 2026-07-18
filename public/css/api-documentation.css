@@ -1,0 +1,510 @@
+.sg-api-page {
+    display: grid;
+    gap: 1.25rem;
+}
+
+.sg-api-hero {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.sg-api-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: #2463eb;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.sg-api-hero h2 {
+    margin: 0.5rem 0 0.45rem;
+    color: #152238;
+    font-size: clamp(1.65rem, 3vw, 2.25rem);
+    font-weight: 750;
+}
+
+.sg-api-hero p {
+    max-width: 760px;
+    margin: 0;
+    color: #667085;
+    line-height: 1.7;
+}
+
+.sg-api-base-url {
+    min-width: 300px;
+    padding: 0.9rem;
+    border: 1px solid #dfe6f1;
+    border-radius: 15px;
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(31, 42, 68, 0.05);
+}
+
+.sg-api-base-url small {
+    display: block;
+    margin-bottom: 0.45rem;
+    color: #667085;
+    font-size: 0.73rem;
+    font-weight: 700;
+}
+
+.sg-api-base-url > div {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 38px;
+    gap: 0.5rem;
+}
+
+.sg-api-base-url code,
+.sg-api-example code,
+.sg-api-request-preview code {
+    overflow: hidden;
+    color: #2455c3;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.75rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sg-api-base-url button,
+.sg-api-example button,
+.sg-api-response-meta button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 9px;
+    color: #2463eb;
+    background: #edf3ff;
+}
+
+.sg-api-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.sg-api-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    min-height: 104px;
+    padding: 1rem;
+    border: 1px solid #e5eaf2;
+    border-radius: 17px;
+    background: #ffffff;
+    box-shadow: 0 10px 28px rgba(31, 42, 68, 0.055);
+}
+
+.sg-api-stat > span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    border-radius: 13px;
+    color: #2463eb;
+    background: #edf3ff;
+}
+
+.sg-api-stat small,
+.sg-api-stat strong {
+    display: block;
+}
+
+.sg-api-stat small {
+    margin-bottom: 0.3rem;
+    color: #7a8495;
+    font-size: 0.74rem;
+    font-weight: 650;
+}
+
+.sg-api-stat strong {
+    color: #152238;
+    font-size: 1.3rem;
+    line-height: 1;
+}
+
+.sg-api-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(340px, 0.7fr);
+    align-items: start;
+    gap: 1rem;
+}
+
+.sg-api-endpoint-list,
+.sg-api-sidebar {
+    display: grid;
+    gap: 1rem;
+}
+
+.sg-api-sidebar {
+    position: sticky;
+    top: 1rem;
+}
+
+.sg-api-panel {
+    overflow: hidden;
+    border: 1px solid #e5eaf2;
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 10px 28px rgba(31, 42, 68, 0.05);
+}
+
+.sg-api-endpoint-head {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid #edf0f5;
+    background: #f9fbfd;
+}
+
+.sg-api-method {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+    padding: 0.32rem 0.5rem;
+    border-radius: 8px;
+    color: #087554;
+    background: #e5f7f0;
+    font-size: 0.7rem;
+    font-weight: 800;
+}
+
+.sg-api-endpoint-head code {
+    color: #29374b;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.sg-api-try-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 34px;
+    padding: 0.45rem 0.65rem;
+    border: 0;
+    border-radius: 9px;
+    color: #ffffff;
+    background: #2463eb;
+    font-size: 0.7rem;
+    font-weight: 750;
+    white-space: nowrap;
+}
+
+.sg-api-endpoint-body {
+    padding: 1rem;
+}
+
+.sg-api-endpoint-body h3 {
+    margin: 0;
+    color: #1d2939;
+    font-size: 1rem;
+    font-weight: 750;
+}
+
+.sg-api-endpoint-body > p {
+    margin: 0.45rem 0 0.9rem;
+    color: #667085;
+    font-size: 0.82rem;
+    line-height: 1.6;
+}
+
+.sg-api-parameter-table {
+    margin: 0 0 0.9rem;
+}
+
+.sg-api-parameter-table th {
+    padding: 0.65rem;
+    border-color: #edf0f5;
+    color: #7a8495;
+    background: #f8fafc;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+}
+
+.sg-api-parameter-table td {
+    padding: 0.65rem;
+    border-color: #edf0f5;
+    color: #566274;
+    font-size: 0.75rem;
+}
+
+.sg-api-parameter-table code {
+    color: #2455c3;
+}
+
+.sg-api-parameter-table .is-required,
+.sg-api-parameter-table .is-optional {
+    display: inline-flex;
+    padding: 0.25rem 0.4rem;
+    border-radius: 999px;
+    font-size: 0.65rem;
+    font-weight: 750;
+}
+
+.sg-api-parameter-table .is-required {
+    color: #b33333;
+    background: #fdecec;
+}
+
+.sg-api-parameter-table .is-optional {
+    color: #566274;
+    background: #eef1f4;
+}
+
+.sg-api-no-parameter {
+    margin-bottom: 0.9rem;
+    padding: 0.65rem 0.75rem;
+    border-radius: 10px;
+    color: #667085;
+    background: #f6f8fb;
+    font-size: 0.75rem;
+}
+
+.sg-api-example {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 38px;
+    gap: 0.6rem;
+    align-items: center;
+    padding: 0.7rem;
+    border-radius: 11px;
+    background: #f6f8fb;
+}
+
+.sg-api-example small {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: #8a95a6;
+    font-size: 0.66rem;
+    font-weight: 700;
+}
+
+.sg-api-panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-bottom: 1px solid #edf0f5;
+}
+
+.sg-api-panel-head span:first-child {
+    display: block;
+    color: #2463eb;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.sg-api-panel-head h3 {
+    margin: 0.2rem 0 0;
+    color: #1d2939;
+    font-size: 0.96rem;
+    font-weight: 750;
+}
+
+.sg-api-tester-form {
+    display: grid;
+    gap: 0.8rem;
+    padding: 1rem;
+}
+
+.sg-api-field {
+    display: grid;
+    gap: 0.4rem;
+}
+
+.sg-api-field label {
+    color: #344054;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.sg-api-field select,
+.sg-api-field input {
+    width: 100%;
+    min-height: 42px;
+    padding: 0.62rem 0.7rem;
+    border: 1px solid #dfe4ec;
+    border-radius: 10px;
+    color: #344054;
+    background: #ffffff;
+    font-size: 0.8rem;
+    outline: none;
+}
+
+.sg-api-field select:focus,
+.sg-api-field input:focus {
+    border-color: #5b8cff;
+    box-shadow: 0 0 0 4px rgba(36, 99, 235, 0.1);
+}
+
+.sg-api-tester-form .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    min-height: 42px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: 750;
+}
+
+.sg-api-request-preview {
+    padding: 0.85rem 1rem;
+    border-top: 1px solid #edf0f5;
+    background: #f9fbfd;
+}
+
+.sg-api-request-preview small {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: #8a95a6;
+    font-size: 0.67rem;
+}
+
+.sg-api-status {
+    display: inline-flex !important;
+    align-items: center;
+    padding: 0.32rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.65rem !important;
+    font-weight: 750;
+    letter-spacing: normal !important;
+    text-transform: none !important;
+}
+
+.sg-api-status.is-idle,
+.sg-api-status.is-loading {
+    color: #566274 !important;
+    background: #eef1f4;
+}
+
+.sg-api-status.is-success {
+    color: #087554 !important;
+    background: #e5f7f0;
+}
+
+.sg-api-status.is-error {
+    color: #b33333 !important;
+    background: #fdecec;
+}
+
+.sg-api-response-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid #2d3748;
+    background: #162032;
+}
+
+.sg-api-response-meta span,
+.sg-api-response-meta button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: #cbd5e1;
+    font-size: 0.68rem;
+}
+
+.sg-api-response-meta button {
+    padding: 0.35rem 0.5rem;
+    background: #26334a;
+}
+
+.sg-api-response-panel pre {
+    max-height: 520px;
+    min-height: 320px;
+    margin: 0;
+    overflow: auto;
+    padding: 1rem;
+    color: #d6e2f1;
+    background: #101827;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.7rem;
+    line-height: 1.65;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.sg-api-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    color: #49617f;
+    background: #f4f8ff;
+}
+
+.sg-api-note > i {
+    color: #2463eb;
+}
+
+.sg-api-note h3 {
+    margin: 0;
+    color: #29415f;
+    font-size: 0.83rem;
+    font-weight: 750;
+}
+
+.sg-api-note p {
+    margin: 0.35rem 0 0;
+    font-size: 0.73rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 1199.98px) {
+    .sg-api-stat-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .sg-api-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sg-api-sidebar {
+        position: static;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .sg-api-hero {
+        flex-direction: column;
+    }
+
+    .sg-api-base-url {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .sg-api-stat-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .sg-api-endpoint-head {
+        grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .sg-api-try-button {
+        grid-column: 1 / -1;
+        justify-self: stretch;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 479.98px) {
+    .sg-api-stat-grid {
+        grid-template-columns: 1fr;
+    }
+}

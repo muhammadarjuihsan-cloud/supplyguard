@@ -6,6 +6,7 @@ use App\Services\RiskScoringService;
 use App\Services\SentimentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Throwable;
@@ -61,12 +62,6 @@ class AdminController extends Controller
             ->orderBy('name')
             ->get();
 
-        $ports = DB::table('ports')
-            ->leftJoin('countries', 'ports.country_id', '=', 'countries.id')
-            ->select('ports.*', 'countries.name as linked_country')
-            ->orderBy('ports.name')
-            ->get();
-
         $articles = DB::table('articles')
             ->leftJoin('users', 'articles.user_id', '=', 'users.id')
             ->select('articles.*', 'users.name as author_name')
@@ -86,7 +81,6 @@ class AdminController extends Controller
             'automation',
             'users',
             'countries',
-            'ports',
             'articles',
             'positiveWords',
             'negativeWords'
@@ -188,6 +182,64 @@ class AdminController extends Controller
                     'Perhitungan risiko gagal: ' . $exception->getMessage()
                 );
         }
+    }
+
+
+    /**
+     * Memperbarui profil, peran, dan kata sandi pengguna.
+     */
+    public function updateUser(Request $request, int $id)
+    {
+        $this->ensureAdmin();
+
+        $user = DB::table('users')->where('id', $id)->first();
+
+        if (!$user) {
+            return redirect()
+                ->route('admin.index')
+                ->with('error', 'Pengguna tidak ditemukan.');
+        }
+
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                Rule::unique('users', 'email')->ignore($id),
+            ],
+            'role' => ['nullable', Rule::in(['admin', 'user'])],
+            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $role = $validated['role'] ?? $user->role;
+
+        /*
+         * Administrator tidak boleh menurunkan peran akun yang sedang
+         * dipakai karena dapat mengunci akses ke halaman admin.
+         */
+        if ($id === (int) auth()->id()) {
+            $role = $user->role;
+        }
+
+        $payload = [
+            'name' => trim($validated['name']),
+            'email' => strtolower(trim($validated['email'])),
+            'role' => $role,
+            'updated_at' => now(),
+        ];
+
+        if (!empty($validated['password'])) {
+            $payload['password'] = Hash::make($validated['password']);
+        }
+
+        DB::table('users')
+            ->where('id', $id)
+            ->update($payload);
+
+        return redirect()
+            ->route('admin.index')
+            ->with('success', 'Data pengguna berhasil diperbarui.');
     }
 
     public function updateUserRole(Request $request, int $id)
@@ -331,6 +383,56 @@ class AdminController extends Controller
             ->with('success', 'Artikel berhasil ditambahkan.');
     }
 
+
+    /**
+     * Memperbarui artikel internal.
+     */
+    public function updateArticle(Request $request, int $id)
+    {
+        $this->ensureAdmin();
+
+        $article = DB::table('articles')->where('id', $id)->first();
+
+        if (!$article) {
+            return redirect()
+                ->route('admin.index')
+                ->with('error', 'Artikel tidak ditemukan.');
+        }
+
+        $validated = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'category' => ['nullable', 'string', 'max:100'],
+            'content' => ['required', 'string'],
+            'is_published' => ['nullable', 'boolean'],
+        ]);
+
+        $title = trim($validated['title']);
+        $slug = $article->slug;
+
+        if ($title !== $article->title) {
+            $slug = Str::slug($title)
+                . '-'
+                . Str::lower(Str::random(6));
+        }
+
+        DB::table('articles')
+            ->where('id', $id)
+            ->update([
+                'title' => $title,
+                'slug' => $slug,
+                'category' => !empty($validated['category'])
+                    ? trim($validated['category'])
+                    : null,
+                'content' => trim($validated['content']),
+                'is_published' => $request->boolean('is_published'),
+                'updated_at' => now(),
+            ]);
+
+        return redirect()
+            ->route('admin.index')
+            ->with('success', 'Artikel berhasil diperbarui.');
+    }
+
     public function destroyArticle(int $id)
     {
         $this->ensureAdmin();
@@ -372,6 +474,45 @@ class AdminController extends Controller
             ->with('success', 'Kata positif berhasil ditambahkan.');
     }
 
+
+    /**
+     * Memperbarui kata positif.
+     */
+    public function updatePositiveWord(Request $request, int $id)
+    {
+        $this->ensureAdmin();
+
+        $request->merge([
+            'word' => Str::lower(trim((string) $request->input('word'))),
+        ]);
+
+        $validated = $request->validate([
+            'word' => [
+                'required',
+                'string',
+                'max:100',
+                Rule::unique('positive_words', 'word')->ignore($id),
+            ],
+        ]);
+
+        $updated = DB::table('positive_words')
+            ->where('id', $id)
+            ->update([
+                'word' => $validated['word'],
+                'updated_at' => now(),
+            ]);
+
+        if (!$updated) {
+            return redirect()
+                ->route('admin.index')
+                ->with('error', 'Kata positif tidak ditemukan atau tidak berubah.');
+        }
+
+        return redirect()
+            ->route('admin.index')
+            ->with('success', 'Kata positif berhasil diperbarui.');
+    }
+
     public function destroyPositiveWord(int $id)
     {
         $this->ensureAdmin();
@@ -411,6 +552,45 @@ class AdminController extends Controller
         return redirect()
             ->route('admin.index')
             ->with('success', 'Kata negatif berhasil ditambahkan.');
+    }
+
+
+    /**
+     * Memperbarui kata negatif.
+     */
+    public function updateNegativeWord(Request $request, int $id)
+    {
+        $this->ensureAdmin();
+
+        $request->merge([
+            'word' => Str::lower(trim((string) $request->input('word'))),
+        ]);
+
+        $validated = $request->validate([
+            'word' => [
+                'required',
+                'string',
+                'max:100',
+                Rule::unique('negative_words', 'word')->ignore($id),
+            ],
+        ]);
+
+        $updated = DB::table('negative_words')
+            ->where('id', $id)
+            ->update([
+                'word' => $validated['word'],
+                'updated_at' => now(),
+            ]);
+
+        if (!$updated) {
+            return redirect()
+                ->route('admin.index')
+                ->with('error', 'Kata negatif tidak ditemukan atau tidak berubah.');
+        }
+
+        return redirect()
+            ->route('admin.index')
+            ->with('success', 'Kata negatif berhasil diperbarui.');
     }
 
     public function destroyNegativeWord(int $id)
