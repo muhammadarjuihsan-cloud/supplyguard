@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CountryDataController;
 use App\Http\Controllers\SupplyGuardApiController;
 use App\Http\Controllers\WatchlistController;
 use App\Http\Controllers\ComparisonController;
@@ -33,6 +34,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/data-negara', [CountryDataController::class, 'index'])->name('countries.index');
 
     Route::get('/watchlist', [WatchlistController::class, 'index'])->name('watchlist.index');
 

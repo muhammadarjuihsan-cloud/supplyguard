@@ -41,6 +41,7 @@ php artisan optimize:clear
 - Register
 - Logout
 - Dashboard
+- Data Negara
 - Perbandingan negara
 - Watchlist
 - Visualisasi
@@ -63,3 +64,10 @@ php artisan optimize:clear
 /api/news?country_id=3&per_page=10
 /api/currency?country_id=3&history_limit=30
 ```
+
+
+## Keamanan repository publik
+
+- `.env` tidak boleh dilacak Git.
+- `database/supplyguard.sql` hanya boleh memuat akun demo.
+- Jalankan `tools/check-public-repo.ps1` sebelum commit.

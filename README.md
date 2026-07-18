@@ -78,18 +78,19 @@ API key disimpan pada file `.env` dan tidak boleh dimasukkan ke GitHub.
 
 1. Autentikasi pengguna
 2. Dashboard negara
-3. Perbandingan negara
-4. Favorite Monitoring List
-5. Visualisasi data
-6. Lokasi pelabuhan
-7. News Intelligence
-8. Monitoring cuaca
-9. Analisis nilai tukar
-10. Risk Scoring
-11. REST API Documentation
-12. Peta Leaflet
-13. Grafik Chart.js
-14. Riwayat risiko
+3. Data Negara global
+4. Perbandingan negara
+5. Favorite Monitoring List
+6. Visualisasi data
+7. Lokasi pelabuhan
+8. News Intelligence
+9. Monitoring cuaca
+10. Analisis nilai tukar
+11. Risk Scoring
+12. REST API Documentation
+13. Peta Leaflet
+14. Grafik Chart.js
+15. Riwayat risiko
 
 ### Administrator
 
@@ -121,6 +122,21 @@ Hasil sinkronisasi terakhir:
 - 146 berita negatif
 
 Jumlah data dapat berubah setelah sinkronisasi berikutnya.
+
+---
+
+## Akun Demo
+
+Gunakan akun berikut setelah mengimpor `database/supplyguard.sql` atau
+menjalankan seeder:
+
+| Peran | Email | Kata sandi |
+|---|---|---|
+| Administrator | `admin@supplyguard.test` | `password` |
+| Pengguna | `user@supplyguard.test` | `password` |
+
+File SQL publik hanya memuat kedua akun demo tersebut. Ganti kata sandi apabila
+project digunakan di lingkungan selain demonstrasi akademik.
 
 ---
 
@@ -345,6 +361,12 @@ Dokumentasi interaktif tersedia pada:
 
 ```text
 /rest-api
+```
+
+Halaman dataset negara tersedia pada:
+
+```text
+/data-negara
 ```
 
 ---

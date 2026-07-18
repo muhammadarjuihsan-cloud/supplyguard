@@ -25,6 +25,12 @@
                 <span>Dasbor</span>
             </a>
 
+            <a href="{{ route('countries.index') }}"
+               class="sg-nav-link {{ request()->routeIs('countries.*') ? 'active' : '' }}">
+                <i class="bi bi-globe-asia-australia"></i>
+                <span>Data Negara</span>
+            </a>
+
             <a href="{{ route('comparison') }}"
                class="sg-nav-link {{ request()->routeIs('comparison') ? 'active' : '' }}">
                 <i class="bi bi-columns-gap"></i>

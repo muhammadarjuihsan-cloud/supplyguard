@@ -662,7 +662,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Admin SupplyGuard','admin@supplyguard.test','2026-07-12 09:51:00','$2y$12$1T2gHjMUOAhTJRyY7YYPsO5ulwyObFN/.46t5e4riLrTGhgcIpx1W','admin',NULL,'2026-07-12 09:51:00','2026-07-12 09:51:00'),(2,'User Demo','user@supplyguard.test','2026-07-12 09:51:00','$2y$12$FwInqdtEXeKU5bYIX1yrOOz2pOyv6KkdxuZMvpZdqmswpdqFAuMOG','user',NULL,'2026-07-12 09:51:00','2026-07-12 09:51:00'),(3,'fazil','fazil@gmail.com','2026-07-18 08:57:26','$2y$12$78kjRG.l0uy2XXRj/q3KQeWZtcOCtjt/jR0C0D.whLVwH5RteLGRO','user',NULL,'2026-07-18 08:57:26','2026-07-18 08:57:26');
+INSERT INTO `users` VALUES (1,'Admin SupplyGuard','admin@supplyguard.test','2026-07-12 09:51:00','$2y$12$1T2gHjMUOAhTJRyY7YYPsO5ulwyObFN/.46t5e4riLrTGhgcIpx1W','admin',NULL,'2026-07-12 09:51:00','2026-07-12 09:51:00'),(2,'User Demo','user@supplyguard.test','2026-07-12 09:51:00','$2y$12$FwInqdtEXeKU5bYIX1yrOOz2pOyv6KkdxuZMvpZdqmswpdqFAuMOG','user',NULL,'2026-07-12 09:51:00','2026-07-12 09:51:00');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -694,7 +694,7 @@ CREATE TABLE `watchlists` (
 
 LOCK TABLES `watchlists` WRITE;
 /*!40000 ALTER TABLE `watchlists` DISABLE KEYS */;
-INSERT INTO `watchlists` VALUES (1,2,1,'Stable supplier candidate','2026-07-12 09:51:00','2026-07-12 09:51:00'),(2,2,3,'Monitor weather and port activity','2026-07-12 09:51:00','2026-07-12 09:51:00'),(4,1,3,'Monitored country','2026-07-12 14:31:33','2026-07-12 14:31:33'),(5,1,109,'tesss','2026-07-14 05:47:00','2026-07-14 05:47:34'),(6,3,3,'pemasok utama','2026-07-18 08:58:57','2026-07-18 08:58:57');
+INSERT INTO `watchlists` VALUES (1,2,1,'Stable supplier candidate','2026-07-12 09:51:00','2026-07-12 09:51:00'),(2,2,3,'Monitor weather and port activity','2026-07-12 09:51:00','2026-07-12 09:51:00');
 /*!40000 ALTER TABLE `watchlists` ENABLE KEYS */;
 UNLOCK TABLES;
 

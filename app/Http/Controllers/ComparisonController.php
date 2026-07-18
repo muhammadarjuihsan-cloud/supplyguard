@@ -13,15 +13,32 @@ class ComparisonController extends Controller
             ->orderBy('name')
             ->get();
 
+        $countryIds = $countries
+            ->pluck('id')
+            ->map(static fn ($id): int => (int) $id)
+            ->values();
+
         $countryAId = $request->integer('country_a');
         $countryBId = $request->integer('country_b');
 
-        if (!$countryAId && $countries->count() >= 1) {
-            $countryAId = $countries[0]->id;
+        if (!$countryIds->contains($countryAId)) {
+            $countryAId = (int) ($countryIds->first() ?? 0);
         }
 
-        if (!$countryBId && $countries->count() >= 2) {
-            $countryBId = $countries[1]->id;
+        /*
+         * Negara kedua harus valid dan berbeda dari negara pertama.
+         * Ini mencegah tombol Bandingkan pada halaman Data Negara membuka
+         * perbandingan negara yang sama pada kedua sisi.
+         */
+        if (
+            !$countryIds->contains($countryBId)
+            || $countryBId === $countryAId
+        ) {
+            $countryBId = (int) (
+                $countryIds->first(
+                    static fn (int $id): bool => $id !== $countryAId
+                ) ?? 0
+            );
         }
 
         $countryA = $this->getCountryComparisonData($countryAId);
@@ -36,8 +53,12 @@ class ComparisonController extends Controller
         ));
     }
 
-    private function getCountryComparisonData($countryId)
+    private function getCountryComparisonData(int $countryId): ?array
     {
+        if ($countryId <= 0) {
+            return null;
+        }
+
         $country = DB::table('countries')
             ->where('id', $countryId)
             ->first();
