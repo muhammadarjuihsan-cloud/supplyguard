@@ -94,12 +94,7 @@
                 <div class="sg-demo-box">
                     <div class="sg-demo-box-head">
                         <i class="bi bi-info-circle"></i>
-                        <strong>Akun demo</strong>
-                    </div>
-                    <div class="sg-demo-account">
-                        <span>Admin</span>
-                        <code>admin@supplyguard.test</code>
-                        <small>password</small>
+                        <strong>Akun demonstrasi pengguna</strong>
                     </div>
                     <div class="sg-demo-account">
                         <span>Pengguna</span>
